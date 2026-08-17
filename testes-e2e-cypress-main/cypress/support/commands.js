@@ -10,11 +10,25 @@
 //
 //
 // -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
+Cypress.Commands.add('login', (email, senha) => {
+    cy.get('[data-test="botao-login"]').click()
+
+    cy.get('[data-test="email-input"]').should('be.visible') // afirmacao de que deve
+    cy.get('[data-test="senha-input"]').should('be.visible') // afirmacao de que deve
+    
+    cy.get('[data-test="email-input"]').type(email)
+    cy.get('[data-test="senha-input"]').type(senha)
+
+    cy.get('[data-test="botao-enviar"]').click()
+    
+    cy.location('pathname').should('eq','/home'); // Afirmacão que deve me direcionar para 
+})
+
+
 // -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
+Cypress.Commands.add('getBydata', (seletor) => {
+    return cy.get(`[data-test="${seletor}"]`)
+})
 //
 //
 // -- This is a dual command --
