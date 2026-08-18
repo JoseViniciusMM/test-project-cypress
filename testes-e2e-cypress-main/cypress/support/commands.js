@@ -26,8 +26,11 @@ Cypress.Commands.add('login', (email, senha) => {
 
 
 // -- This is a child command --
-Cypress.Commands.add('getBydata', (seletor) => {
-    return cy.get(`[data-test="${seletor}"]`)
+Cypress.Commands.add('getByData', (seletor, options) => {
+    return cy.get(
+        `[data-test="${seletor}"], [data-cy="${seletor}"], [data-testid="${seletor}"]`,
+        options
+    )
 })
 //
 //

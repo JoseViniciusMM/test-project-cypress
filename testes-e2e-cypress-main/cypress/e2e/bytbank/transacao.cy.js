@@ -2,21 +2,24 @@
 
 import { should } from "chai"
 describe('Fluxo login', () => { 
-    it('Deve realizar login com sucesso', () => {
+    it('Deve realizar login com sucesso e realizar transação', () => {
         cy.login('neilton@alura.com', '123456');
         cy.contains('p', 'Olá, Neilton').should('be.visible');
         
         cy.location('pathname').should('eq','/home'); 
+        // selecionar opção 'Depósito'
+        cy.getByData('select-opcoes').select('Depósito');
 
-        cy.getBydata('data-test="select-opcoes').click();
-        cy.getBydata('data-test="select-opcoes').select('Depósito').click();
+        // preencher valor e submeter
+        cy.getByData('form-input').clear().type('100');
+        cy.getByData('realiza-transacao').click();
 
-        cy.getBydata('data-test="form-input"').type('100');
-        cy.getBydata('data-test="realiza-transacao"').click();
-        
-        cy.getBydata('data-test="lista-transacoes"').last().should('contain.data-testid="valorTransacao"', '100,00');
+        // verificar última transação contém o valor
+        cy.getByData('lista-transacoes').last().within(() => {
+            cy.getByData('valorTransacao').should('contain', '100,00');
+        });
 
-        cy.getBydata('botao-sair').click();
+        cy.getByData('botao-sair').click();
         cy.location('pathname').should('eq','/'); 
     });
 });
