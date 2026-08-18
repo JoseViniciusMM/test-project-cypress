@@ -13,15 +13,15 @@
 Cypress.Commands.add('login', (email, senha) => {
     cy.get('[data-test="botao-login"]').click()
 
-    cy.get('[data-test="email-input"]').should('be.visible') // afirmacao de que deve
-    cy.get('[data-test="senha-input"]').should('be.visible') // afirmacao de que deve
+    cy.get('[data-test="email-input"]').should('be.visible') // afirmacao de que deve ser visivel 
+    cy.get('[data-test="senha-input"]').should('be.visible') // afirmacao de que deve ser visivel
     
     cy.get('[data-test="email-input"]').type(email)
     cy.get('[data-test="senha-input"]').type(senha)
 
     cy.get('[data-test="botao-enviar"]').click()
     
-    cy.location('pathname').should('eq','/home'); // Afirmacão que deve me direcionar para 
+    cy.location('pathname').should('eq','/home'); // Afirmacão que deve me direcionar para a home
 })
 
 
